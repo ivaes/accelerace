@@ -1,27 +1,35 @@
 class RoadLinesView {
 
   constructor (speed) {
-    this.speed = speed
-    this.element = document.querySelector('.road_lines')
+    this.updateSpeed(speed)
+    this.elements = document.querySelectorAll('.road_lines')
+    this.offset = -1 * window.screen.height
+    this.elements[0].style.height = `${window.screen.height}px`
+    this.elements[1].style.height = `${window.screen.height}px`
+    this.updatePosition()
     this.draw()
+  }
+
+  updatePosition() {
+    this.elements[0].style.top = `${this.offset}px`
+    this.elements[1].style.top = `${this.offset + window.screen.height}px`
   }
 
   updateSpeed (speed) {
-    speed !== null && speed !== undefined && (this.speed = speed)
-    this.timeout && clearTimeout(this.timeout)
-    this.draw()
+    this.step = window.screen.height / speed
   }
 
   draw() {
-    const currentOffset = parseInt(this.element.style.marginTop, 10)
-    const neededOffset = currentOffset > 0 ? 0 : 20
-    this.element.style.marginTop = `${neededOffset}px`
-    this.timeout = setTimeout(() => this.draw, this.speed)
+    this.offset += this.step
+    this.offset >= 0 && (this.offset = -1 * window.screen.height)
+    this.updatePosition()
+    this.timeout = setTimeout(() => this.draw(), 1000)
   }
 
   destroy() {
     this.speed = null
-    this.element = null
+    this.elements = null
+    this.offset = null
     this.timeout && clearTimeout(this.timeout)
   }
 }
