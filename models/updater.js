@@ -33,4 +33,8 @@ class Updater {
         return this.compareVersion(upstreamVersion, currentVersion)
       })
   }
+
+  destroy() {
+    this.upstreamVersionUrl = null
+  }
 }

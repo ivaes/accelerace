@@ -15,4 +15,9 @@ class UpdaterView {
   showUpdateDialog() {
     if (confirm('New version available. Do you want to update the App?')) location.href = this.model.getUpdateUrl(this.updateUrl)
   }
+
+  destroy() {
+    this.model.destroy()
+    this.updateUrl = null
+  }
 }
