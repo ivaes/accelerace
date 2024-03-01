@@ -1,13 +1,29 @@
 class LightsView {
 
-  constructor (speed) {
+  constructor (speed, ligthsPerLine = 1) {
     this.updateSpeed(speed)
-    this.elements = document.querySelectorAll('.road_lines')
+    this.elements = document.querySelectorAll('.lights_section')
     this.offset = -1 * window.screen.height
     this.elements[0].style.height = `${window.screen.height}px`
     this.elements[1].style.height = `${window.screen.height}px`
+    this.createLights(lightsPerLine)
     this.updatePosition()
-    this.draw()
+    //this.draw()
+
+    for (let i = 0; i < 6; ++i) {
+      this.elements[0].appendChild(this.getLight())
+      this.elements[1].appendChild(this.getLight())
+    }
+
+    alert(this.elements[1].innerHTML)
+  }
+
+  createLights (lightsPerLine) {
+    this.lights = []
+
+    for (let i = 0; i < lightsPerLine * 2; ++i) {
+      this.ligths.push(this.getLight())
+    }
   }
 
   getLight() {
@@ -20,7 +36,7 @@ class LightsView {
 
   updatePosition() {
     this.elements[0].style.top = `${this.offset}px`
-    this.elements[1].style.top = `${this.offset + window.screen.height}px`
+    this.elements[1].style.top = `${this.offset}px`
   }
 
   updateSpeed (speed) {
@@ -35,9 +51,11 @@ class LightsView {
   }
 
   destroy() {
+    this.lights = null
     this.speed = null
     this.elements = null
     this.offset = null
     this.timeout && clearTimeout(this.timeout)
+    this.timeout = null
   }
 }
