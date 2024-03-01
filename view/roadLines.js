@@ -23,7 +23,7 @@ class RoadLinesView {
     this.offset += this.step
     this.offset >= 0 && (this.offset = -1 * window.screen.height)
     this.updatePosition()
-    this.timeout = setTimeout(() => this.draw(), 1000)
+    this.timeout = setTimeout(() => this.draw(), 40)
   }
 
   destroy() {

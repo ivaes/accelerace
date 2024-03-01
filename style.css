@@ -42,7 +42,6 @@ u, p, input, label, textarea, select, option {
   vertical-align: top;
   z-index: auto;
   box-sizing: border-box;
-  transition: 1s ease-in-out;
 }
 
 html,
@@ -286,50 +285,4 @@ body,
 }
 .tree_line_element {
   margin-top: var(--palm_tree);
-}
-
-#main_page1 {
-  animation-fill-mode: forwards;
-  animation-timing-function: ease;
-  animation-name: main_move;
-  animation-duration: 3s;
-  animation-delay: 0.3s;
-}
-
-@keyframes main_move1 {
-  from {top: 0;}
-  to { top: 20%;}
-}
-
-.svg_pic.car {
-  animation-fill-mode: forwards;
-}
-
-.svg_pic.car#car_1 {
-  animation-name: example_1_;
-  animation-duration: 4s;
-}
-.svg_pic.car#car_2 {
-  animation-name: example_2_;
-  animation-duration: 4s;
-}
-
-.svg_pic.car#main_car {
-  animation-name: example_main_car_;
-  animation-duration: 4s;
-}
-
-@keyframes example_1 {
-  0% {top: 55%;}
-  50% {left: 40%;}
-  100% { top: 0%; left: 45%;}
-}
-@keyframes example_2 {
-  0% {top: 60%;}
-  100% { top: 0%; left: 55%;}
-}
-
-@keyframes example_main_car {
-  from {top: 60%; left: 45%;}
-  to { top: 0%; left: 60%;}
 }
