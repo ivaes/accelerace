@@ -1,28 +1,25 @@
 class LightsView {
 
-  constructor (speed, ligthsPerLine = 1) {
+  constructor (speed, lightsPerLine) {
+    this.lightHeight = 100
     this.updateSpeed(speed)
+    this.lightsPerLine = lightsPerLine || 1
     this.elements = document.querySelectorAll('.lights_section')
-    this.offset = -1 * window.screen.height
+    this.offset = -this.lightHeight
     this.elements[0].style.height = `${window.screen.height}px`
     this.elements[1].style.height = `${window.screen.height}px`
-    this.createLights(lightsPerLine)
+    this.createLights()
     this.updatePosition()
-    //this.draw()
-
-    for (let i = 0; i < 6; ++i) {
-      this.elements[0].appendChild(this.getLight())
-      this.elements[1].appendChild(this.getLight())
-    }
-
-    alert(this.elements[1].innerHTML)
+    this.draw()
   }
 
-  createLights (lightsPerLine) {
+  createLights() {
     this.lights = []
 
-    for (let i = 0; i < lightsPerLine * 2; ++i) {
-      this.ligths.push(this.getLight())
+    for (let i = 0; i < this.lightsPerLine * 2; ++i) {
+      const light = this.getLight()
+      this.lights.push(light)
+      this.elements[i % 2].appendChild(light)
     }
   }
 
@@ -35,8 +32,14 @@ class LightsView {
   }
 
   updatePosition() {
-    this.elements[0].style.top = `${this.offset}px`
-    this.elements[1].style.top = `${this.offset}px`
+    const pixelsBetween2Lights = window.screen.height / this.lightsPerLine
+
+    for (let i = 0; i < this.lightsPerLine; ++i) {
+      console.log(i)
+      const top = i * pixelsBetween2Lights + this.offset
+      this.lights[2 * i].style.top = top + 'px'
+      this.lights[2 * i + 1].style.top = top + 'px'
+    }
   }
 
   updateSpeed (speed) {
@@ -45,7 +48,7 @@ class LightsView {
 
   draw() {
     this.offset += this.step
-    this.offset >= 0 && (this.offset = -1 * window.screen.height)
+    this.offset >= window.screen.height && (this.offset = -this.lightHeight)
     this.updatePosition()
     this.timeout = setTimeout(() => this.draw(), 40)
   }
