@@ -35,7 +35,6 @@ class LightsView {
     const pixelsBetween2Lights = window.screen.height / this.lightsPerLine
 
     for (let i = 0; i < this.lightsPerLine; ++i) {
-      console.log(i)
       const top = i * pixelsBetween2Lights + this.offset
       this.lights[2 * i].style.top = top + 'px'
       this.lights[2 * i + 1].style.top = top + 'px'
@@ -48,7 +47,7 @@ class LightsView {
 
   draw() {
     this.offset += this.step
-    this.offset >= window.screen.height && (this.offset = -this.lightHeight)
+    this.offset >= window.screen.height / this.lightsPerLine && (this.offset = -this.lightHeight)
     this.updatePosition()
     this.timeout = setTimeout(() => this.draw(), 40)
   }
