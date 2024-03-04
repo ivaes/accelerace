@@ -3,4 +3,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
   updaterView.showUpdateDialogIfNeeded()
   const roadLinesView = new RoadLinesView(6)
   const lightsView = new LightsView(12, 2)
+  const decorView = new DecorView(32)
 })
