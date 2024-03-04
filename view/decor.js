@@ -2,7 +2,9 @@ class DecorView {
 
   constructor (speed) {
     this.treeLineHeight = 0
-    this.houseLineHeight = 0
+    this.houseLeftLineHeight = 0
+    this.houseRightLineHeight = 0
+    this.parallaxRatio = 2 / 3
     this.updateSpeed(speed)
     this.treeLine = document.querySelectorAll('.tree_line')
     this.treeLine[0].style.height = `${window.screen.height}px`
@@ -13,7 +15,8 @@ class DecorView {
     this.houseLine[0].style.height = `${window.screen.height}px`
     this.houseLine[1].style.height = `${window.screen.height}px`
     this.createHouseLines()
-    this.houseOffset = -this.houseLineHeight
+    this.houseLeftOffset = -this.houseLeftLineHeight
+    this.houseRightOffset = -this.houseRightLineHeight
     this.updatePosition()
     this.draw()
   }
@@ -26,7 +29,8 @@ class DecorView {
 
         if (i === 0 && j === 0) {
           const rect = treeLine.getBoundingClientRect()
-          this.treeLineHeight = rect.height + rect.top
+          const height = rect.height + rect.top
+          this.treeLineHeight = (parseInt(height / this.step) + 1) * this.step
         }
       }
     }
@@ -42,7 +46,11 @@ class DecorView {
       if (j === 0) {
 	const lrect = leftLine.getBoundingClientRect()
         const rrect = leftLine.getBoundingClientRect()
-	this.houseLineHeight = Math.max(lrect.height + lrect.top, rrect.height + rrect.top)
+	const leftLineHeight = lrect.height + lrect.top
+        const rightLineHeight = rrect.height + rrect.top
+        const step = this.step * this.parallaxRatio
+        this.houseLeftLineHeight = (parseInt(leftLineHeight / step) + 1) * step
+        this.houseRightLineHeight = (parseInt(rightLineHeight / step) + 1) * step
       }
     }
   }
@@ -88,9 +96,10 @@ class DecorView {
   updatePosition() {
     for (let i = 0; i < this.treeLine.length; ++i) {
       this.treeLine[i].style.top = this.treeOffset + 'px'
-      this.houseLine[i].style.top = this.houseOffset + 'px'
     }
 
+    this.houseLine[0].style.top = this.houseLeftOffset + 'px'
+    this.houseLine[1].style.top = this.houseRightOffset + 'px'
   }
 
   updateSpeed (speed) {
@@ -100,8 +109,10 @@ class DecorView {
   draw() {
     this.treeOffset += this.step
     this.treeOffset >= 0 && (this.treeOffset = -this.treeLineHeight)
-    this.houseOffset += this.step * 3 / 4
-    this.houseOffset >= 0 && (this.houseOffset = -this.houseLineHeight)
+    this.houseLeftOffset += this.step * this.parallaxRatio
+    this.houseLeftOffset >= 0 && (this.houseLeftOffset = -this.houseLeftLineHeight)
+    this.houseRightOffset += this.step * this.parallaxRatio
+    this.houseRightOffset >= 0 && (this.houseRightOffset = -this.houseRightLineHeight)
     this.updatePosition()
     this.timeout = setTimeout(() => this.draw(), 40)
   }
