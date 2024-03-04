@@ -45,7 +45,7 @@ class DecorView {
 
       if (j === 0) {
 	const lrect = leftLine.getBoundingClientRect()
-        const rrect = leftLine.getBoundingClientRect()
+        const rrect = rightLine.getBoundingClientRect()
 	const leftLineHeight = lrect.height + lrect.top
         const rightLineHeight = rrect.height + rrect.top
         const step = this.step * this.parallaxRatio
