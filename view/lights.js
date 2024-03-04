@@ -1,14 +1,13 @@
 class LightsView {
 
   constructor (speed, lightsPerLine) {
-    this.lightHeight = 100
     this.updateSpeed(speed)
     this.lightsPerLine = lightsPerLine || 1
     this.elements = document.querySelectorAll('.lights_section')
-    this.offset = -this.lightHeight
     this.elements[0].style.height = `${window.screen.height}px`
     this.elements[1].style.height = `${window.screen.height}px`
     this.createLights()
+    this.offset = -this.lightHeight
     this.updatePosition()
     this.draw()
   }
@@ -20,6 +19,11 @@ class LightsView {
       const light = this.getLight()
       this.lights.push(light)
       this.elements[i % 2].appendChild(light)
+
+      if (i === 0) {
+        const rect = light.getBoundingClientRect()
+        this.lightHeight = rect.height + rect.top
+      }
     }
   }
 
