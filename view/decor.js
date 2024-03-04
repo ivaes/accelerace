@@ -2,12 +2,18 @@ class DecorView {
 
   constructor (speed) {
     this.treeLineHeight = 0
+    this.houseLineHeight = 0
     this.updateSpeed(speed)
     this.treeLine = document.querySelectorAll('.tree_line')
     this.treeLine[0].style.height = `${window.screen.height}px`
     this.treeLine[1].style.height = `${window.screen.height}px`
     this.createTreeLines()
-    this.offset = -this.height
+    this.treeOffset = -this.treeLineHeight
+    this.houseLine = document.querySelectorAll('.house_line')
+    this.houseLine[0].style.height = `${window.screen.height}px`
+    this.houseLine[1].style.height = `${window.screen.height}px`
+    this.createHouseLines()
+    this.houseOffset = -this.houseLineHeight
     this.updatePosition()
     this.draw()
   }
@@ -22,6 +28,21 @@ class DecorView {
           const rect = treeLine.getBoundingClientRect()
           this.treeLineHeight = rect.height + rect.top
         }
+      }
+    }
+  }
+
+  createHouseLines() {
+    for (let j = 0; j < 4; ++j) {
+      const leftLine = this.getLeftHouseLine()
+      const rightLine = this.getRightHouseLine()
+      this.houseLine[0].appendChild(leftLine)
+      this.houseLine[1].appendChild(rightLine)
+
+      if (j === 0) {
+	const lrect = leftLine.getBoundingClientRect()
+        const rrect = leftLine.getBoundingClientRect()
+	this.houseLineHeight = Math.max(lrect.height + lrect.top, rrect.height + rrect.top)
       }
     }
   }
@@ -66,8 +87,10 @@ class DecorView {
 
   updatePosition() {
     for (let i = 0; i < this.treeLine.length; ++i) {
-      this.treeLine[i].style.top = this.offset + 'px'
+      this.treeLine[i].style.top = this.treeOffset + 'px'
+      this.houseLine[i].style.top = this.houseOffset + 'px'
     }
+
   }
 
   updateSpeed (speed) {
@@ -75,17 +98,17 @@ class DecorView {
   }
 
   draw() {
-    this.offset += this.step
-    this.offset >= 0 && (this.offset = -this.treeLineHeight)
+    this.treeOffset += this.step
+    this.treeOffset >= 0 && (this.treeOffset = -this.treeLineHeight)
+    this.houseOffset += this.step * 3 / 4
+    this.houseOffset >= 0 && (this.houseOffset = -this.houseLineHeight)
     this.updatePosition()
     this.timeout = setTimeout(() => this.draw(), 40)
   }
 
   destroy() {
-    this.lights = null
     this.speed = null
-    this.elements = null
-    this.offset = null
+    this.treeOffset = null
     this.timeout && clearTimeout(this.timeout)
     this.timeout = null
   }
