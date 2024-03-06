@@ -1,12 +1,20 @@
-class DecorView {
+class RoadView {
 
   constructor (speed, lightsPerLine) {
     this.parallaxRatio = 2 / 3
     this.updateSpeed(speed)
+    this.initRoadLines()
     this.initLights(lightsPerLine)
     this.initTrees()
     this.initHouses()
     this.draw()
+  }
+
+  initRoadLines() {
+    this.roadLine = document.querySelectorAll('.road_lines')
+    this.roadLineOffset = -1 * window.screen.height
+    this.roadLine[0].style.height = `${window.screen.height}px`
+    this.roadLine[1].style.height = `${window.screen.height}px`
   }
 
   initLights (lightsPerLine) {
@@ -135,9 +143,17 @@ class DecorView {
   }
 
   updatePosition() {
+    this.updateRoadLines()
     this.updateTrees()
     this.updateHouses()
     this.updateLights()
+  }
+
+  updateRoadLines() {
+    this.roadLineOffset += this.step
+    this.roadLineOffset >= 0 && (this.roadLineOffset = -1 * window.screen.height)
+    this.roadLine[0].style.top = `${this.roadLineOffset}px`
+    this.roadLine[1].style.top = `${this.roadLineOffset + window.screen.height}px`
   }
 
   updateLights() {
