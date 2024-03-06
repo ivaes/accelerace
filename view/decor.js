@@ -1,11 +1,21 @@
 class DecorView {
 
-  constructor (speed) {
+  constructor (speed, lightsPerLine) {
     this.parallaxRatio = 2 / 3
     this.updateSpeed(speed)
+    this.initLights(lightsPerLine)
     this.initTrees()
     this.initHouses()
     this.draw()
+  }
+
+  initLights (lightsPerLine) {
+    this.lightsPerLine = lightsPerLine || 1
+    this.lightLine = document.querySelectorAll('.lights_section')
+    this.lightLine[0].style.height = `${window.screen.height}px`
+    this.lightLine[1].style.height = `${window.screen.height}px`
+    this.createLights()
+    this.lightOffset = -this.lightHeight
   }
 
   initTrees() {
@@ -27,6 +37,21 @@ class DecorView {
     this.houseLeftOffset = -this.houseLeftLineHeight
     this.houseRightOffset = -this.houseRightLineHeight
     this.updatePosition()
+  }
+
+  createLights() {
+    this.lights = []
+
+    for (let i = 0; i < this.lightsPerLine * 2; ++i) {
+      const light = this.getLight()
+      this.lights.push(light)
+      this.lightLine[i % 2].appendChild(light)
+
+      if (i === 0) {
+        const rect = light.getBoundingClientRect()
+        this.lightHeight = rect.height + rect.top
+      }
+    }
   }
 
   createTreeLines() {
@@ -85,6 +110,14 @@ class DecorView {
     return div
   }
 
+  getLight() {
+    const div = document.createElement('div')
+    div.classList.add('svg_pic')
+    div.classList.add('light')
+    div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15"><path d="M7.5,0A7.5,7.5,0,1,1,0,7.5,7.5,7.5,0,0,1,7.5,0Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15"><path d="M7.5,0A7.5,7.5,0,1,1,0,7.5,7.5,7.5,0,0,1,7.5,0Z"/></svg>'
+    return div
+  }
+
   getHouse() {
     return '<div class="svg_pic decor house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 102"><path d="M54.5 101.5H.5l27-27v-47 47l27 27V.58ZM.5.5v100.92Zm0 0h54l-27 27Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 102"><path d="M54.5 101.5H.5l27-27v-47 47l27 27V.58ZM.5.5v100.92Zm0 0h54l-27 27Z"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 102"><path d="M54.5 101.5H.5l27-27v-47 47l27 27V.58ZM.5.5v100.92Zm0 0h54l-27 27Z"/></svg></div>'
   }
@@ -104,6 +137,19 @@ class DecorView {
   updatePosition() {
     this.updateTrees()
     this.updateHouses()
+    this.updateLights()
+  }
+
+  updateLights() {
+    this.lightOffset += this.step / this.parallaxRatio
+    this.lightOffset >= window.screen.height / this.lightsPerLine && (this.lightOffset = -this.lightHeight)
+    const pixelsBetween2Lights = window.screen.height / this.lightsPerLine
+
+    for (let i = 0; i < this.lightsPerLine; ++i) {
+      const top = i * pixelsBetween2Lights + this.lightOffset
+      this.lights[2 * i].style.top = top + 'px'
+      this.lights[2 * i + 1].style.top = top + 'px'
+    }
   }
 
   updateTrees() {
@@ -134,8 +180,11 @@ class DecorView {
   }
 
   destroy() {
+    this.lightsPerLine = null
     this.speed = null
     this.treeOffset = null
+    this.houseLeftOffset = null
+    this.houseRightOffset = null
     this.timeout && clearTimeout(this.timeout)
     this.timeout = null
   }
