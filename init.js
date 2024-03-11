@@ -3,4 +3,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
   updaterView.showUpdateDialogIfNeeded()
   const roadView = new RoadView(32, 2)
   const carView = new CarView(16)
+  const enemyView = new EnemyView(8)
 })
