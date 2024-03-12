@@ -116,6 +116,12 @@ body,
 .svg_pic.car#car_2 svg:nth-child(2) path {
   stroke: var(--color_violet);
 }
+
+.svg_pic.car#car_1, .svg_pic.car#car_2 {
+  position: absolute;
+  display: none;
+}
+
 .road {
   position: absolute;
   top: 0;

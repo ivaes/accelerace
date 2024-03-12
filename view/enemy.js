@@ -5,7 +5,6 @@ class EnemyView {
     this.id = id
     this.element = document.querySelector(`#car_${id}`)
     this.element.style.display = 'flex'
-    this.element.style.position = 'absolute'
     const rect = this.element.querySelector('svg').getBoundingClientRect()
     this.roadRect = document.querySelector('.road_sides').getBoundingClientRect()
     const left = this.roadRect.left + Math.random() * (this.roadRect.right - rect.width - this.roadRect.left)
