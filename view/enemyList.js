@@ -18,7 +18,7 @@ class EnemyListView {
   createEnemy() {
     if (this.enemiesOnScreen.length === 2) return
 
-    const id = this.enemiesOnScreen.length === 0 ? Math.floor(Math.random()) + 1 : 3 - this.enemiesOnScreen[0]
+    const id = this.enemiesOnScreen.length === 0 ? Math.round(Math.random()) + 1 : 3 - this.enemiesOnScreen[0]
     this.enemiesOnScreen.push(id)
     const view = new EnemyView(this.speed, id)
   }
