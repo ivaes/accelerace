@@ -3,7 +3,8 @@ window.asafonov.version = '0.1'
 window.asafonov.messageBus = new MessageBus()
 window.asafonov.events = {
   GAME_OVER: 'GAME_OVER',
-  ENEMY_DESTROYED: 'ENEMY_DESTROYED'
+  ENEMY_DESTROYED: 'ENEMY_DESTROYED',
+  ENEMY_HALFWAY: 'ENEMY_HALFWAY'
 }
 window.asafonov.settings = {
 }

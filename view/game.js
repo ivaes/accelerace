@@ -5,6 +5,7 @@ class GameView {
     this.roadView = new RoadView(this.speed * 4, 2)
     this.carView = new CarView(this.speed * 2)
     this.enemyListView = new EnemyListView(this.speed)
+    this.enemyListView.setDoubleEnemy(true)
     this.addEventListeners()
   }
 
@@ -25,6 +26,7 @@ class GameView {
   onGameOver() {
     this.roadView.stop()
     this.carView.stop()
+    this.destroy()
     alert('Game Over')
   }
 

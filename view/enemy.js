@@ -1,7 +1,6 @@
 class EnemyView {
 
   constructor (speed, id) {
-    console.log(speed)
     this.speed = speed || 1
     this.id = id
     this.element = document.querySelector(`#car_${id}`)
@@ -41,17 +40,21 @@ class EnemyView {
   }
 
   moveVertical() {
+    const top = this.carRect.top
     const moved = this.move(this.speed, 0)
     const isGameOver = this.isGameOver()
 
     if (isGameOver) {
       asafonov.messageBus.send(asafonov.events.GAME_OVER)
-      this.destroy()
       return
     }
 
     if (moved) {
       this.timeout = setTimeout(() => this.moveVertical(), 40)
+
+      if (top < window.innerHeight / 2 && this.carRect.top >= window.innerHeight / 2) {
+        asafonov.messageBus.send(asafonov.events.ENEMY_HALFWAY, {id: this.id})
+      }
     } else {
       asafonov.messageBus.send(asafonov.events.ENEMY_DESTROYED, {id: this.id})
       this.destroy()

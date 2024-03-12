@@ -3,6 +3,7 @@ class EnemyListView {
   constructor (speed) {
     this.enemiesOnScreen = []
     this.speed = speed
+    this.doubleEnemy = false
     this.createEnemy()
     this.addEventListeners()
   }
@@ -18,13 +19,14 @@ class EnemyListView {
   createEnemy() {
     if (this.enemiesOnScreen.length === 2) return
 
-    const id = this.enemiesOnScreen.length === 0 ? Math.round(Math.random()) + 1 : 3 - this.enemiesOnScreen[0]
-    this.enemiesOnScreen.push(id)
+    const id = this.enemiesOnScreen.length === 0 ? Math.round(Math.random()) + 1 : 3 - this.enemiesOnScreen[0].id
     const view = new EnemyView(this.speed, id)
+    this.enemiesOnScreen.push(view)
   }
 
   onEnemyDestroyed (data) {
-    this.enemiesOnScreen.shift()
+    let enemy = this.enemiesOnScreen.shift()
+    enemy = null
     this.createEnemy()
   }
 
@@ -32,8 +34,21 @@ class EnemyListView {
     this.speed = speed
   }
 
+  setDoubleEnemy (doubleEnemy) {
+    this.doubleEnemy = doubleEnemy
+    asafonov.messageBus[this.doubleEnemy ? 'subscribe' : 'unsubscribe'](asafonov.events.ENEMY_HALFWAY, this, 'createEnemy')
+  }
+
   destroy() {
+    this.setDoubleEnemy(false)
+    this.doubleEnemy = null
     this.removeEventListeners()
+
+    for (let i = 0; i < this.enemiesOnScreen.length; ++i) {
+      this.enemiesOnScreen[i].destroy()
+      this.enemiesOnScreen[i] = null
+    }
+
     this.enemiesOnScreen = null
     this.speed = null
   }
