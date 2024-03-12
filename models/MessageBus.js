@@ -24,6 +24,8 @@ class MessageBus {
   }
 
   unsubscribe (type, object, func) {
+    if (this.subscribers[type] === null || this.subscribers[type] === undefined) return
+
     for (var i = 0; i < this.subscribers[type].length; ++i) {
       if (this.subscribers[type][i].object === object && this.subscribers[type][i].func === func) {
         this.subscribers[type].slice(i, 1);

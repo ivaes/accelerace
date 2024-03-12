@@ -1,11 +1,11 @@
 class GameView {
 
   constructor() {
-    this.speed = 8
-    this.roadView = new RoadView(this.speed * 4, 2)
-    this.carView = new CarView(this.speed * 2)
+    this.speed = window.innerHeight / 80
+    this.score = 0
+    this.roadView = new RoadView(32, 2)
+    this.carView = new CarView(16)
     this.enemyListView = new EnemyListView(this.speed)
-    this.enemyListView.setDoubleEnemy(true)
     this.addEventListeners()
   }
 
@@ -20,7 +20,14 @@ class GameView {
   }
 
   onEnemyDestroyed() {
-    this.enemyListView.setSpeed(++this.speed)
+    this.score++
+
+    if (this.score % 5 === 0) {
+      this.speed *= 1.1
+      this.enemyListView.setSpeed(this.speed)
+    }
+
+    if (this.score === 10) this.enemyListView.setDoubleEnemy(true)
   }
 
   onGameOver() {
