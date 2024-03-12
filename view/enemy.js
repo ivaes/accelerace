@@ -41,6 +41,13 @@ class EnemyView {
 
   moveVertical() {
     const moved = this.move(this.speed, 0)
+    const isGameOver = this.isGameOver()
+
+    if (isGameOver) {
+      asafonov.messageBus.send(asafonov.events.GAME_OVER)
+      this.destroy()
+      return
+    }
 
     if (moved) {
       this.timeout = setTimeout(() => this.moveVertical(), 40)
@@ -52,6 +59,12 @@ class EnemyView {
 
   stop() {
     this.timeout && clearTimeout(this.timeout)
+  }
+
+  isGameOver() {
+    const isVerticalCollision = (this.carRect.top >= asafonov.player.top && this.carRect.top <= asafonov.player.top + asafonov.player.height) || (this.carRect.top + this.carRect.height >= asafonov.player.top && this.carRect.top + this.carRect.height <= asafonov.player.top + asafonov.player.height)
+    const isHorizontalCollision = (this.carRect.left >= asafonov.player.left && this.carRect.left <= asafonov.player.left + asafonov.player.width) || (this.carRect.left + this.carRect.width >= asafonov.player.left && this.carRect.left + this.carRect.width <= asafonov.player.left + asafonov.player.width)
+    return isVerticalCollision && isHorizontalCollision
   }
 
   destroy() {

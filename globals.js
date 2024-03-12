@@ -7,6 +7,7 @@ window.asafonov.events = {
 }
 window.asafonov.settings = {
 }
+window.asafonov.player = null
 window.onerror = (msg, url, line) => {
   alert(`${msg} on line ${line}`)
 }

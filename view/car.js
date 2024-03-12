@@ -11,6 +11,7 @@ class CarView {
       left: this.roadRect.left,
       top: window.innerHeight - rect.height - rect.top
     }
+    asafonov.player = this.carRect
     this.display()
     this.onTouchProxy = this.onTouch.bind(this)
     this.addEventListeners()
