@@ -4,7 +4,8 @@ class EnemyView {
     this.speed = speed || 1
     this.id = id
     this.element = document.querySelector(`#car_${id}`)
-    this.element.style.display = 'block'
+    this.element.style.display = 'flex'
+    this.element.style.position = 'absolute'
     const rect = this.element.querySelector('svg').getBoundingClientRect()
     this.roadRect = document.querySelector('.road_sides').getBoundingClientRect()
     const left = this.roadRect.left + Math.random() * (this.roadRect.right - rect.width - this.roadRect.left)
@@ -14,6 +15,7 @@ class EnemyView {
       left: left,
       top: -rect.height
     }
+    this.display()
     this.moveVertical()
   }
 
@@ -27,7 +29,7 @@ class EnemyView {
     let movedVertically = top !== undefined && top !== null && top !== 0
 
     if (movedVertically) {
-      this.carRect.top = this.carRect.top + top
+      this.carRect.top += top
 
       if (this.carRect.top >= window.innerHeight) {
         movedVertically = false
@@ -40,6 +42,7 @@ class EnemyView {
 
   moveVertical() {
     const moved = this.move(this.speed, 0)
+
     if (moved) {
       this.timeout = setTimeout(() => this.moveVertical(), 40)
     } else {
