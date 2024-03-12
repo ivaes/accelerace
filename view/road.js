@@ -195,6 +195,10 @@ class RoadView {
     this.timeout = setTimeout(() => this.draw(), 40)
   }
 
+  stop() {
+    this.timeout && clearTimeout(this.timeout)
+  }
+
   destroy() {
     this.lightsPerLine = null
     this.speed = null

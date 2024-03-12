@@ -1,6 +1,7 @@
 class EnemyView {
 
   constructor (speed, id) {
+    console.log(speed)
     this.speed = speed || 1
     this.id = id
     this.element = document.querySelector(`#car_${id}`)
