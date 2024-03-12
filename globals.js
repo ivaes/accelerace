@@ -2,7 +2,8 @@ window.asafonov = {}
 window.asafonov.version = '0.1'
 window.asafonov.messageBus = new MessageBus()
 window.asafonov.events = {
-  GAME_OVER: 'gameOver'
+  GAME_OVER: 'GAME_OVER',
+  ENEMY_DESTROYED: 'ENEMY_DESTROYED'
 }
 window.asafonov.settings = {
 }

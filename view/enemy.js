@@ -1,8 +1,8 @@
 class EnemyView {
 
-  constructor (speed) {
+  constructor (speed, id) {
     this.speed = speed || 1
-    const id = Math.random() > 0.5 ? 2 : 1
+    this.id = id
     this.element = document.querySelector(`#car_${id}`)
     this.element.style.display = 'block'
     const rect = this.element.querySelector('svg').getBoundingClientRect()
@@ -43,6 +43,7 @@ class EnemyView {
     if (moved) {
       this.timeout = setTimeout(() => this.moveVertical(), 40)
     } else {
+      asafonov.messageBus.send(asafonov.events.ENEMY_DESTROYED, {id: this.id})
       this.destroy()
     }
   }
