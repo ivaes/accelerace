@@ -50,7 +50,7 @@ class EnemyView {
     }
 
     if (moved) {
-      this.timeout = setTimeout(() => this.moveVertical(), 40)
+      this.timeout = asafonov.timer.add(() => this.moveVertical())
 
       if (top < window.innerHeight / 2 && this.carRect.top >= window.innerHeight / 2) {
         asafonov.messageBus.send(asafonov.events.ENEMY_HALFWAY, {id: this.id})
@@ -62,7 +62,8 @@ class EnemyView {
   }
 
   stop() {
-    this.timeout && clearTimeout(this.timeout)
+    this.timeout && asafonov.timer.remove(this.timeout)
+    this.timeout = null
   }
 
   isGameOver() {
