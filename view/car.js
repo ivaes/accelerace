@@ -1,7 +1,6 @@
 class CarView {
 
   constructor (speed) {
-    this.speed = speed || 1
     this.element = document.querySelector('#main_car')
     const rect = this.element.querySelector('svg').getBoundingClientRect()
     this.roadRect = document.querySelector('.road_sides').getBoundingClientRect()
@@ -11,6 +10,7 @@ class CarView {
       left: this.roadRect.left,
       top: window.innerHeight - rect.height - rect.top
     }
+    this.speed = this.roadRect.width / (speed || 25)
     asafonov.player = this.carRect
     this.display()
     this.onTouchProxy = this.onTouch.bind(this)
