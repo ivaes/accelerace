@@ -2,13 +2,13 @@ class CarView {
 
   constructor (speed) {
     this.element = document.querySelector('#main_car')
-    const rect = this.element.querySelector('svg').getBoundingClientRect()
+    const rect = this.element.querySelector('svg path').getBoundingClientRect()
     this.roadRect = document.querySelector('.road_sides').getBoundingClientRect()
     this.carRect = {
       height: rect.height + rect.top,
       width: rect.width + rect.left,
       left: this.roadRect.left,
-      top: window.innerHeight - rect.height - rect.top
+      top: window.innerHeight - rect.height * 1.5 - rect.top
     }
     this.speed = this.roadRect.width / (speed || 25)
     asafonov.player = this.carRect

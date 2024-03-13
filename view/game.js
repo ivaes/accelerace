@@ -34,7 +34,10 @@ class GameView {
     this.roadView.stop()
     this.carView.stop()
     this.destroy()
-    alert('Game Over')
+
+    if (confirm('Game over. Start again?')) {
+      location.reload()
+    }
   }
 
   destroy() {
