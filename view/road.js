@@ -1,12 +1,13 @@
 class RoadView {
 
-  constructor (speed, lightsPerLine) {
+  constructor (speed, lightsPerLine, options) {
+    this.options = options || {roadLines: true, lights: true, trees: true, houses: true}
     this.parallaxRatio = 2 / 3
     this.updateSpeed(speed)
-    this.initRoadLines()
-    this.initLights(lightsPerLine)
-    this.initTrees()
-    this.initHouses()
+    this.options.roadLines && this.initRoadLines()
+    this.options.lights && this.initLights(lightsPerLine)
+    this.options.trees && this.initTrees()
+    this.options.houses && this.initHouses()
     this.draw()
   }
 
@@ -143,10 +144,10 @@ class RoadView {
   }
 
   updatePosition() {
-    this.updateRoadLines()
-    this.updateTrees()
-    this.updateHouses()
-    this.updateLights()
+    this.options.roadLines && this.updateRoadLines()
+    this.options.trees && this.updateTrees()
+    this.options.houses && this.updateHouses()
+    this.options.lights && this.updateLights()
   }
 
   updateRoadLines() {
