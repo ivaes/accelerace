@@ -10,7 +10,7 @@ class CarView {
       left: this.roadRect.left,
       top: window.innerHeight - rect.height * 1.5 - rect.top
     }
-    this.speed = this.roadRect.width / (speed || 25)
+    this.speed = this.roadRect.width / (speed || asafonov.timer.getFPS())
     asafonov.player = this.carRect
     this.display()
     this.onTouchProxy = this.onTouch.bind(this)
@@ -64,16 +64,17 @@ class CarView {
 
   moveLeft() {
     const moved = this.move(0, -this.speed)
-    moved && (this.timeout = setTimeout(() => this.moveLeft(), 40))
+    moved && (this.timeout = asafonov.timer.add(() => this.moveLeft()))
   }
 
   moveRight() {
     const moved = this.move(0, this.speed)
-    moved && (this.timeout = setTimeout(() => this.moveRight(), 40))
+    moved && (this.timeout = asafonov.timer.add(() => this.moveRight()))
   }
 
   stop() {
-    this.timeout && clearTimeout(this.timeout)
+    this.timeout && asafonov.timer.remove(this.timeout)
+    this.timeout = null
   }
 
   destroy() {

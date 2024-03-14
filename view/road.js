@@ -192,11 +192,12 @@ class RoadView {
 
   draw() {
     this.updatePosition()
-    this.timeout = setTimeout(() => this.draw(), 40)
+    this.timeout = asafonov.timer.add(() => this.draw())
   }
 
   stop() {
-    this.timeout && clearTimeout(this.timeout)
+    this.timeout && asafonov.timer.remove(this.timeout)
+    this.timeout = null
   }
 
   destroy() {
@@ -205,7 +206,6 @@ class RoadView {
     this.treeOffset = null
     this.houseLeftOffset = null
     this.houseRightOffset = null
-    this.timeout && clearTimeout(this.timeout)
-    this.timeout = null
+    this.stop()
   }
 }

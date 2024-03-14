@@ -6,6 +6,14 @@ class Timer {
     this.ticks = []
   }
 
+  getInterval() {
+    return this.interval
+  }
+
+  getFPS() {
+    return 1000 / this.interval
+  }
+
   setInterval (interval) {
     this.interval = interval
   }
