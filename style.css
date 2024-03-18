@@ -17,7 +17,7 @@
   --stroke_colored: max(0.4vw, 0.4vh);
   --stroke_white: max(0.059vw, 0.059vh);
   --height_car: max(15vw, 15vh);
-  --light: calc(var(--height_car)/1.5);
+  --light: calc(var(--height_car)/8);
   --tree: calc(var(--height_car)/3);
   --palm_tree: calc(var(--height_car)/2.4);
   --small_house: calc(var(--height_car)/2.48);
@@ -156,6 +156,9 @@ body,
   align-items: center;
   height: var(--light);
   width: var(--light);
+  background-color: var(--color_lines);
+  box-shadow: 0px 0px calc(var(--light) * 3) calc(var(--light) * 1.5) var(--color_lines);
+  border-radius: 50%;
 }
 
 .svg_pic.light svg path {
@@ -173,15 +176,15 @@ body,
 }
 
 .lights_section {
-  width: calc(var(--height_car)/1.5);
+  width: calc(var(--ligth));
   height: 100%;
   z-index: 999;
 }
 .lights_section:first-of-type {
-  left: calc(var(--light)*0.37);
+  left: 0;
 }
 .lights_section:last-of-type {
-  right: calc(var(--light)*0.37);
+  right: 0;
 }
 
 .lights_section .svg_pic.light:nth-child(2) {
