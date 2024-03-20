@@ -25,6 +25,8 @@ class Timer {
     if (! this.timeout) {
       this.timeout = setTimeout(() => this.tick(), this.interval)
     }
+
+    return this.inc
   }
 
   remove (id) {
