@@ -71,10 +71,6 @@ body,
   filter: blur(var(--blur));
 }
 
-.svg_pic.decor svg:nth-child(1) {
-  filter: blur(calc(var(--blur)*1.1));
-}
-
 .svg_pic.car {
   height: var(--height_car);
   z-index: 99;
@@ -202,17 +198,6 @@ body,
 
 .svg_pic.decor {
   opacity: 0.4;
-}
-
-.svg_pic.decor svg:nth-child(1) path {
-  stroke-width: var(--stroke_blured);
-}
-.svg_pic.decor svg:nth-child(2) path {
-  stroke-width: calc(var(--stroke_colored)/4);
-}
-.svg_pic.decor svg:nth-child(3) path {
-  stroke: var(--color_lines);
-  stroke-width: calc(var(--stroke_white)/2);
 }
 
 .svg_pic.tree img {

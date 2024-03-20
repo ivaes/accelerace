@@ -139,7 +139,7 @@ class RoadView {
   }
 
   getTree() {
-    return '<div class="svg_pic decor tree"><img src="./images/tree.svg"></div>'
+    return '<div class="svg_pic decor tree"><img src="./images/tree.png"></div>'
   }
 
   updatePosition() {
