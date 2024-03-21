@@ -157,20 +157,6 @@ body,
   border-radius: 50%;
 }
 
-.svg_pic.light svg path {
-  fill: var(--color_lines);
-  stroke: var(--color_lines);
-  transform: scale(0.8);
-  transform-origin: center;
-}
-.svg_pic.light svg:nth-child(1) {
-  height: 100%;
-  filter: blur(calc(var(--blur)*3));
-}
-.svg_pic.light svg:nth-child(2) {
-  height: calc(var(--light)/3.33);
-}
-
 .lights_section {
   width: calc(var(--ligth));
   height: 100%;
@@ -183,19 +169,6 @@ body,
   right: 0;
 }
 
-.lights_section .svg_pic.light:nth-child(2) {
-  top: calc(var(--height_car)*0.7);
-}
-.lights_section .svg_pic.light:nth-child(3) {
-  top: calc(var(--height_car)*1.4);
-}
-.lights_section .svg_pic.light:nth-child(4) {
-  top: calc(var(--height_car)*2.1);
-}
-.lights_section .svg_pic.light:nth-child(5) {
-  top: calc(var(--height_car)*2.8);
-}
-
 .svg_pic.decor {
   opacity: 0.4;
 }
@@ -203,32 +176,16 @@ body,
 .svg_pic.tree img {
   height: var(--tree);
 }
-.svg_pic.tree svg:nth-child(1) path,
-.svg_pic.tree svg:nth-child(2) path,
-.svg_pic.palm_tree svg:nth-child(1) path,
-.svg_pic.palm_tree svg:nth-child(2) path {
-  stroke: var(--color_tree);
-}
 
-.svg_pic.palm_tree {
+.svg_pic.palm_tree img {
   height: var(--palm_tree);
 }
 
-.svg_pic.house {
+.svg_pic.house img {
   height: var(--house);
 }
-.svg_pic.house svg path {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.svg_pic.house svg:nth-child(1) path,
-.svg_pic.house svg:nth-child(2) path,
-.svg_pic.small_house svg:nth-child(1) path,
-.svg_pic.small_house svg:nth-child(2) path {
-  stroke: var(--color_brown);
-}
 
-.svg_pic.small_house {
+.svg_pic.small_house img {
   height: var(--small_house);
 }
 
@@ -250,7 +207,6 @@ body,
   display: flex;
   flex-direction: row;
 }
-
 
 .decor_section .decor_part .tree_line,
 .decor_section .decor_part .house_line {
