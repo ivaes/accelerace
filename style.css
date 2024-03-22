@@ -76,6 +76,10 @@ body,
   z-index: 99;
 }
 
+.svg_pic.car img {
+  height: calc(var(--height_car) * 0.7);
+}
+
 .svg_pic.car svg:nth-child(1) path {
   stroke-width: var(--stroke_blured);
   fill: var(--color_road);
@@ -102,15 +106,6 @@ body,
 .svg_pic.car#main_car svg:nth-child(1) path,
 .svg_pic.car#main_car svg:nth-child(2) path {
   stroke: var(--color_yellow);
-}
-
-.svg_pic.car#car_1 svg:nth-child(1) path,
-.svg_pic.car#car_1 svg:nth-child(2) path {
-  stroke: var(--color_navy);
-}
-.svg_pic.car#car_2 svg:nth-child(1) path,
-.svg_pic.car#car_2 svg:nth-child(2) path {
-  stroke: var(--color_violet);
 }
 
 .svg_pic.car#car_1, .svg_pic.car#car_2 {
