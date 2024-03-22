@@ -45,7 +45,14 @@ class CarView {
     let movedVertically = top !== undefined && top !== null && top !== 0
 
     if (movedHorizontally) {
+      const before = this.carRect.left
       this.carRect.left = this.carRect.left + left
+      const middle = this.roadRect.left + this.roadRect.width / 2 - this.carRect.width / 2
+
+      if ((before < middle && this.carRect.left >= middle) || (before > middle && this.carRect.left <=middle)) {
+        this.carRect.left = middle
+        movedHorizontally = false
+      }
 
       if (this.carRect.left <= this.roadRect.left) {
         this.carRect.left = this.roadRect.left
