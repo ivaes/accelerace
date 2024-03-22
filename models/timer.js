@@ -39,8 +39,10 @@ class Timer {
     const length = this.ticks.length
 
     for (let i = 0; i < length; ++i) {
-      const tick = this.ticks.shift().tick
-      tick()
+      if (this.ticks.length > 0) {
+        const tick = this.ticks.shift().tick
+        tick()
+      }
     }
 
     this.timeout = setTimeout(() => this.tick(), this.interval)
