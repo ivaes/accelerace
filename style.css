@@ -284,6 +284,10 @@ body,
   animation-delay: 1s;
 }
 
+.game_control.game_play {
+  display: none;
+}
+
 @keyframes countdown {
   0% {}
   25% { content: '3'; }
