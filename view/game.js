@@ -3,6 +3,7 @@ class GameView {
   constructor (delay) {
     this.speed = window.innerHeight / asafonov.timer.getFPS() / 3 // 3 secs for screen ride
     this.score = 0
+    this.scoreContainer = document.querySelector('#score')
     this.roadView = new RoadView(asafonov.timer.getFPS(), 2, {roadLines: true, lights: true, trees: true, houses: true})
     this.carView = new CarView(asafonov.timer.getFPS() / 2)
     this.addEventListeners()
@@ -26,6 +27,7 @@ class GameView {
 
   onEnemyDestroyed() {
     this.score++
+    this.scoreContainer.innerHTML = this.score
 
     if (this.score % 5 === 0) {
       this.speed *= 1.1
@@ -54,6 +56,8 @@ class GameView {
     this.carView.destroy()
     this.carView = null
     this.speed = null
+    this.score = null
+    this.scoreContainer = null
   }
 
 }

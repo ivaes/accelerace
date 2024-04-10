@@ -285,7 +285,7 @@ body,
   animation-delay: 1s;
 }
 
-.game_control.game_play {
+.game_control.game_play, .game_control.game_pause {
   display: none;
 }
 
