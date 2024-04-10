@@ -1,12 +1,17 @@
 class GameView {
 
-  constructor() {
+  constructor (delay) {
     this.speed = window.innerHeight / asafonov.timer.getFPS() / 3 // 3 secs for screen ride
     this.score = 0
     this.roadView = new RoadView(asafonov.timer.getFPS(), 2, {roadLines: true, lights: true, trees: true, houses: true})
     this.carView = new CarView(asafonov.timer.getFPS() / 2)
-    this.enemyListView = new EnemyListView(this.speed)
     this.addEventListeners()
+    setTimeout(() => this.initEnemy(), delay)
+    setTimeout(() => document.querySelector('.countdown').style.display = 'none', delay + 1500)
+  }
+
+  initEnemy() {
+    this.enemyListView = new EnemyListView(this.speed)
   }
 
   addEventListeners() {
