@@ -17,6 +17,7 @@
   --color_tree: #66FF66;
   --color_road: #1B1B1B;
   --color_lines: #FBFFFF;
+  --color_util: #DEDEDE;
   --line: max(0.1vw, 0.1vh);
   --blur: max(0.73vw, 0.73vh);
   --stroke_blured: max(0.88vw, 0.88vh);
