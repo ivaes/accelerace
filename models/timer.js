@@ -4,6 +4,7 @@ class Timer {
     this.setInterval(interval)
     this.inc = 0
     this.ticks = []
+    this.isPause = false
   }
 
   getInterval() {
@@ -18,7 +19,18 @@ class Timer {
     this.interval = interval
   }
 
+  pause() {
+    this.timeout && clearTimeout(this.timeout)
+    this.isPause = true
+  }
+
+  play() {
+    this.isPause = false
+    this.timeout = setTimeout(() => this.tick(), this.interval)
+  }
+
   add (tick) {
+    if (this.isPause) return
     this.inc++
     this.ticks.push({id: this.inc, tick: tick})
 

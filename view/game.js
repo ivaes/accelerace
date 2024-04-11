@@ -6,21 +6,46 @@ class GameView {
     this.scoreContainer = document.querySelector('#score')
     this.roadView = new RoadView(asafonov.timer.getFPS(), 2, {roadLines: true, lights: true, trees: true, houses: true})
     this.carView = new CarView(asafonov.timer.getFPS() / 2)
+    this.playButton = document.querySelector('.game_play')
+    this.pauseButton = document.querySelector('.game_pause')
+    this.onPlayClickProxy = this.onPlayClick.bind(this)
+    this.onPauseClickProxy = this.onPauseClick.bind(this)
     this.addEventListeners()
     setTimeout(() => this.initEnemy(), delay)
-    setTimeout(() => document.querySelector('.countdown').style.display = 'none', delay + 1500)
+    setTimeout(() => {
+      document.querySelector('.countdown').style.display = 'none'
+      this.pauseButton.style.display = 'flex'
+    }, delay + 1500)
   }
 
   initEnemy() {
     this.enemyListView = new EnemyListView(this.speed)
   }
 
+  onPlayClick (event) {
+    event.stopPropagation()
+    this.pauseButton.style.display = 'flex'
+    this.playButton.style.display = 'none'
+    asafonov.timer.play()
+  }
+
+  onPauseClick (event) {
+    event.stopPropagation()
+    this.pauseButton.style.display = 'none'
+    this.playButton.style.display = 'flex'
+    asafonov.timer.pause()
+  }
+
   addEventListeners() {
+    this.playButton.addEventListener('click', this.onPlayClickProxy)
+    this.pauseButton.addEventListener('click', this.onPauseClickProxy)
     asafonov.messageBus.subscribe(asafonov.events.ENEMY_DESTROYED, this, 'onEnemyDestroyed')
     asafonov.messageBus.subscribe(asafonov.events.GAME_OVER, this, 'onGameOver')
   }
 
   removeEventListeners() {
+    this.playButton.removeEventListener('click', this.onPlayClickProxy)
+    this.pauseButton.removeEventListener('click', this.onPauseClickProxy)
     asafonov.messageBus.unsubscribe(asafonov.events.ENEMY_DESTROYED, this, 'onEnemyDestroyed')
     asafonov.messageBus.unsubscribe(asafonov.events.GAME_OVER, this, 'onGameOver')
   }
