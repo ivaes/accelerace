@@ -285,8 +285,20 @@ body,
   animation-delay: 1s;
 }
 
-.game_control.game_play, .game_control.game_pause {
-  display: none;
+.game_control {
+  height: calc(var(--height_car)/4);
+  display: flex;
+  align-items: center;
+}
+
+.game_control svg {
+  height: 70%;
+  filter: drop-shadow(0 0 calc(var(--blur)*1.5) var(--color_util));
+}
+
+.game_control svg path {
+  fill: var(--color_util);
+  
 }
 
 @keyframes countdown {
