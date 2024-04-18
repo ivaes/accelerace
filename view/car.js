@@ -13,31 +13,32 @@ class CarView {
     this.speed = this.roadRect.width / (speed || asafonov.timer.getFPS())
     asafonov.player = this.carRect
     this.display()
-    this.onTouchProxy = this.onTouch.bind(this)
     this.addEventListeners()
   }
 
   addEventListeners() {
-    document.body.addEventListener('click', this.onTouchProxy)
+    asafonov.messageBus.subscribe(asafonov.events.CAR_MOVE_RIGHT, this, 'onMoveRight')
+    asafonov.messageBus.subscribe(asafonov.events.CAR_MOVE_LEFT, this, 'onMoveLeft')
   }
 
   removeEventListeners() {
-    document.body.removeEventListener('click', this.onTouchProxy)
-  }
-
-  onTouch(event) {
-    this.stop()
-
-    if (event.clientX > window.innerWidth / 2) {
-      this.moveRight()
-    } else {
-      this.moveLeft()
-    }
+    asafonov.messageBus.unsubscribe(asafonov.events.CAR_MOVE_RIGHT, this, 'onMoveRight')
+    asafonov.messageBus.unsubscribe(asafonov.events.CAR_MOVE_LEFT, this, 'onMoveLeft')
   }
 
   display() {
     this.element.style.left = `${this.carRect.left}px`
     this.element.style.top = `${this.carRect.top}px`
+  }
+
+  onMoveRight() {
+    this.stop()
+    this.moveRight()
+  }
+
+  onMoveLeft() {
+    this.stop()
+    this.moveLeft()
   }
 
   move(top, left) {

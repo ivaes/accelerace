@@ -10,6 +10,7 @@ class GameView {
     this.pauseButton = document.querySelector('.game_pause')
     this.onPlayClickProxy = this.onPlayClick.bind(this)
     this.onPauseClickProxy = this.onPauseClick.bind(this)
+    this.onTouchProxy = this.onTouch.bind(this)
     this.addEventListeners()
     setTimeout(() => this.initEnemy(), delay)
     setTimeout(() => {
@@ -36,9 +37,18 @@ class GameView {
     asafonov.timer.pause()
   }
 
+  onTouch(event) {
+    if (event.clientX > window.innerWidth / 2) {
+      asafonov.messageBus.send(asafonov.events.CAR_MOVE_RIGHT)
+    } else {
+      asafonov.messageBus.send(asafonov.events.CAR_MOVE_LEFT)
+    }
+  }
+
   addEventListeners() {
     this.playButton.addEventListener('click', this.onPlayClickProxy)
     this.pauseButton.addEventListener('click', this.onPauseClickProxy)
+    document.body.addEventListener('click', this.onTouchProxy)
     asafonov.messageBus.subscribe(asafonov.events.ENEMY_DESTROYED, this, 'onEnemyDestroyed')
     asafonov.messageBus.subscribe(asafonov.events.GAME_OVER, this, 'onGameOver')
   }
@@ -46,6 +56,7 @@ class GameView {
   removeEventListeners() {
     this.playButton.removeEventListener('click', this.onPlayClickProxy)
     this.pauseButton.removeEventListener('click', this.onPauseClickProxy)
+    document.body.removeEventListener('click', this.onTouchProxy)
     asafonov.messageBus.unsubscribe(asafonov.events.ENEMY_DESTROYED, this, 'onEnemyDestroyed')
     asafonov.messageBus.unsubscribe(asafonov.events.GAME_OVER, this, 'onGameOver')
   }
