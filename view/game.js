@@ -8,6 +8,8 @@ class GameView {
     this.carView = new CarView(asafonov.timer.getFPS() / 2)
     this.playButton = document.querySelector('.game_play')
     this.pauseButton = document.querySelector('.game_pause')
+    this.playButton.style.display = 'none'
+    this.pauseButton.style.display = 'none'
     this.onPlayClickProxy = this.onPlayClick.bind(this)
     this.onPauseClickProxy = this.onPauseClick.bind(this)
     this.onTouchProxy = this.onTouch.bind(this)
