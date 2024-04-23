@@ -13,5 +13,5 @@ window.asafonov.settings = {
 }
 window.asafonov.player = null
 window.onerror = (msg, url, line) => {
-  alert(`${msg} on line ${line}`)
+  if (!! window.asafonov.debug) alert(`${msg} on line ${line}`)
 }
